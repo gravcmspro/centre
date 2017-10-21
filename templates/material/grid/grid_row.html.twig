@@ -1,0 +1,4 @@
+{% set attributes = parse_attributes(attributes) %}
+<div class="row {{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}>
+    {{ content }}
+</div>

@@ -1,0 +1,11 @@
+{% set attributes = parse_attributes(values.attributes) %}
+{% set jumbotron_height = ((values.height is not null) ? 'jumbotron-height jumbotron-height-' ~ values.height : '') %}
+<div class="jumbotron jumbotron-container {{ jumbotron_height }} {{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}>
+  <div class="jumbotron-content-container">
+  {{ values.content }}
+  </div>
+  <div class="{{ jumbotron_height }} jumbotron-image image{% if(values.background_attached == "true") %} background-attached{% endif %}" {% if(values.image) %} style="background-image: url('{{ get_media(values.image, values.image_path).url }}')"{% endif %}></div>
+  {% if(values.blurred_image) %}
+  <div class="{{ jumbotron_height }} jumbotron-image blurred-image" style="background-image: url('{{ get_media(values.blurred_image, values.image_path).url }}')"></div>
+  {% endif %}
+</div>

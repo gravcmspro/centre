@@ -1,0 +1,43 @@
+{% macro render_navbar(values) %}
+  <nav class="m-navbar{% if values.transparent == 'all' or grav["page"].menu|lower in values.transparent %} transparent{% endif %}{% if values.extended %} nav-extended{% endif %}">
+      {% if (values.childShortcodes is not null) %}
+      {% for child in values.childShortcodes %}
+        {% if child.getParameter('type') == 'menu' %}
+        {{ _self.render_menu(values, child.getContent) }}
+        {% else %}
+        {% set child_attributes = parse_attributes(child.getParameter('attributes')) %}
+        <div class="nav-content {{ child_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': brand_link_attributes, 'ignore': ['class']} %}>
+        {{ child.getContent }}
+        </div>
+        {% endif %}
+      {% endfor %}
+      {% else %}
+      {{ _self.render_menu(values, values.content) }}
+      {% endif %}
+  </nav>
+{% endmacro %}
+
+{% macro render_menu(values, content) %}
+  <div class="nav-wrapper">
+      {% set brand_link_attributes = parse_attributes(values.brand_link_attributes) %}
+      {% set brand_url = values.brand_url is null ? '/' : values.brand_url %}
+      <a href="{{ brand_url }}" class="brand-logo {{ values.brand_align }} {{ brand_link_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': brand_link_attributes, 'ignore': ['class']} %}>
+        {% if (values.brand_image is not empty) %}
+          {% set brand_image_attributes = parse_attributes(values.brand_image_attributes) %}
+          <img src="{{ get_media(values.brand_image, values.brand_image_path).url }}" {% include 'partials/_attributes.html.twig' with {'attributes': brand_image_attributes} %} />
+        {% else %}
+          {% if values.brand_icon is not null %}<i class="material-icons">{{ values.brand_icon }}</i>{% endif %}{{ values.brand_name }}
+        {% endif %}
+      </a>
+      <a href="#" data-activates="{{ values.sidebar_id }}" class="button-collapse"><i class="material-icons">menu</i></a>
+      {{ content }}
+  </div>
+{% endmacro %}
+
+{% if values.fixed == 'true' %}
+  <div class="navbar-fixed">
+    {{ _self.render_navbar(values) }}
+  </div>
+{% else %}
+  {{ _self.render_navbar(values) }}
+{% endif %}

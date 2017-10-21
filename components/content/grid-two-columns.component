@@ -1,0 +1,10 @@
+[m-grid attributes="M_ATTRIBUTES"]
+  [m-grid-row]
+    [m-grid-col attributes="COLUMN_1.M_ATTRIBUTES"]
+      COLUMN_1.M_CONTENT
+    [/m-grid-col]
+    [m-grid-col attributes="COLUMN_2.M_ATTRIBUTES"]
+      COLUMN_2.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

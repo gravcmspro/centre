@@ -1,0 +1,2 @@
+{% set attributes = parse_attributes(values.attributes) %}
+<iframe width="100%" src="{{ values.src }}" frameborder="0" allowfullscreen {% include 'partials/_attributes.html.twig' with {'values': attributes} %}></iframe>

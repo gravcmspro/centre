@@ -1,0 +1,45 @@
+
+{% if(instanceof(values, '\\Thunder\\Shortcode\\Shortcode\\ProcessedShortcode')) %}
+    {% set values = {
+      'image': item.getParameter('image'),
+      'image_path': item.getParameter('image-path')|default('/images'),
+      'size': item.getParameter('size'),
+      'card_title': item.getParameter('title'),
+      'content': item.content|trim,
+    } %}
+{% endif %}
+
+{% set card_attributes = parse_attributes(values.card_attributes) %}
+{% set card_content_attributes = parse_attributes(values.card_content_attributes) %}
+<div class="card hoverable{% if values.size is not null %} {{ values.size }}{% endif %}{% if values.sticky is not null %} sticky-action{% endif %} {{ card_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_attributes, 'ignore': ['class']} %}>
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{{ get_media(values.image, values.image_path).url }}">
+    </div>
+    <div class="card-content {{ card_content_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_content_attributes, 'ignore': ['class']} %}>
+      <span class="card-title activator">{{ values.card_title }}<i class="material-icons right">more_vert</i></span>
+      {{ values.content }}
+    </div>
+    <div class="card-reveal {{ card_content_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_content_attributes, 'ignore': ['class']} %}>
+      <span class="card-title">{{ values.card_title }}<i class="material-icons right">close</i></span>
+      {{ values.full_content.content|trim }}
+    </div>
+    {% if (values.action is not null) %}
+    <div class="card-action">
+        {{ values.action.content|trim }}
+    </div>
+    {% endif %}
+</div>
+
+  {#
+<div class="card{% if values.type is not null %} {{ values.type }}{% endif %}">
+    <div class="card-image">
+        <img src="{{ get_media(values.image, values.image_path).url }}">
+        <span class="card-title">Card Title</span>
+    </div>
+    <div class="card-content">
+        {{ values.content }}
+    </div>
+    <div class="card-action">
+        {{ values.action.content|trim }}
+    </div>
+</div>#}

@@ -1,0 +1,49 @@
+{% if(instanceof(values, '\\Thunder\\Shortcode\\Shortcode\\ProcessedShortcode')) %}
+    {% set values = {
+      'image': item.getParameter('image'),
+      'image_path': item.getParameter('image-path')|default('/images'),
+      'size': item.getParameter('type'),
+      'content': item.content|trim,
+    } %}
+{% endif %}
+
+{% set card_attributes = parse_attributes(values.card_attributes) %}
+{% set card_content_attributes = parse_attributes(values.card_content_attributes) %}
+{% set card_opacized_bg_attributes = parse_attributes(values.card_opacized_bg_attributes) %}
+<div class="card{% if values.size is not null %} {{ values.size }}{% endif %} {{ card_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_attributes, 'ignore': ['class']} %}>
+    {% if values.card_opacized_bg_attributes is not null %}
+    <div class="opacized {{ card_opacized_bg_attributes['class'] }}"></div>
+    {% endif %}
+    {% if (values.image is not null) %}
+    <div class="card-image">
+        {% if (instanceof(values.image, '\\Grav\\Common\\Page\\Medium\\ImageMedium')) %}
+          {{ values.image.html }}
+        {% elseif (values.image) %}
+          {{ get_media(values.image, values.image_path).html(values.image_title, values.image_alt) }}
+        {% endif %}
+        {% if values.card_title is not null %}
+        <span class="card-title">{{ values.card_title }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
+    <div class="card-content {{ card_content_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_content_attributes, 'ignore': ['class']} %}>
+        {{ values.content }}
+    </div>
+    {% if (values.action is not null) %}
+    {% set card_action_attributes = parse_attributes(values.card_action_attributes) %}
+    <div class="card-action {{ card_action_attributes['class'] }}"  {% include 'partials/_attributes.html.twig' with {'attributes': card_action_attributes, 'ignore': ['class']} %}>
+        {{ values.action.content|trim }}
+    </div>
+    {% endif %}
+
+    {% set action_url = active_page.header.card.action.url %}
+    {% if (action_url is not null) %}
+    {% if (action_url == 'self') %}
+      {% set action_url = active_page.url %}
+    {% endif %}
+    <div class="card-action">
+      <a class="btn" href="{{ action_url }}">{{ active_page.header.card.action.label }}</a>
+      <span class="right {{ active_page.header.card.content.class }}">{{ active_page.header.card.content.value }}</span>
+    </div>
+    {% endif %}
+</div>

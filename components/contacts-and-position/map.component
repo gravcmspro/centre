@@ -1,0 +1,17 @@
+[m-grid container="M_CONTAINER" attributes="M_ATTRIBUTES"]
+  [m-grid-row]
+    [m-grid-col attributes="class:M_INCIPIT.M_COLUMNS M_INCIPIT.M_CENTER M_INCIPIT.M_EXTRA_ATTRIBUTES"]
+      M_INCIPIT.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+
+  [m-grid-row]
+    [m-grid-col attributes="class:M_MAP.M_COLUMNS"]
+      [m-google-map id="M_MAP.M_ID" zoom="M_MAP.M_ZOOM" center="M_MAP.M_POINT_CENTER" api-key="M_MAP.M_API_KEY"]
+        [m-google-map-marker location="M_MAP.M_POINT_LOCATION" title="M_MAP.M_TITLE"]
+          M_MAP.M_CONTENT
+        [/m-google-map-marker]
+      [/m-google-map]
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

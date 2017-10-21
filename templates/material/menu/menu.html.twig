@@ -1,0 +1,55 @@
+{% macro render_link(values, dropdownName) %}
+{% set counter = 0 %}
+{% for item in values.menu %}
+    {% set values = item %}
+    {% set dropdownValues = null %}
+    {% if item.children|length > 0 %}
+        {% set currentDropdownName = dropdownName ~ counter %}
+        {% set values = {
+            url: '#!',
+            menu: item.menu ~ '<i class="material-icons right">arrow_drop_down</i>',
+            link_attributes: 'class:dropdown-button,data-activates:' ~ currentDropdownName,
+        } %}
+
+        {% set dropdownValues = {
+            id: currentDropdownName,
+            items: item.children
+        } %}
+        {% set counter = counter + 1 %}
+    {% endif %}
+
+    <li {% if grav["page"].menu|lower in values.menu|lower %} class="active"{% endif %}>{% include 'basic/link.html.twig' with{'url': values.url, 'menu': values.menu, 'icon': values.icon, 'link_attributes': values.link_attributes } %} </li>
+
+    {% if dropdownValues is not null %}
+    {{ _self.render_dropdown(dropdownValues) }}
+    {% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro render_dropdown(dropdown) %}
+<ul id='{{ dropdown.id }}' class='dropdown-content'>
+  {% for item in dropdown.items %}
+    {% set values = item %}
+    {% if item is iterable %}
+    <li>{% include 'basic/link.html.twig' %}</li>
+    {% else %}
+    <li>{{ values }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endmacro %}
+
+{% set attributes = parse_attributes(values.attributes) %}
+{% if values.sidebar_id is not null %}
+<ul class="hide-on-med-and-down {{ values.alignment }} {{ attributes['class'] }}"  {% include 'partials/_attributes.html.twig' with {'attributes': attributes, 'ignore': ['class']} %}>
+    {{ _self.render_link(values, 'dropdown-') }}
+</ul>
+
+<ul class="side-nav" id="{{ values.sidebar_id }}">
+    {{ _self.render_link(values, 'dropdown-m-') }}
+</ul>
+{% else %}
+<ul class="{{ values.alignment }} {{ card_attributes['class'] }}"  {% include 'partials/_attributes.html.twig' with {'attributes': card_attributes, 'ignore': ['class']} %}>
+    {{ _self.render_link(values, 'dropdown-') }}
+</ul>
+{% endif %}

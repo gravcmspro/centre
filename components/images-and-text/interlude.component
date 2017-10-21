@@ -1,0 +1,11 @@
+[m-grid container="false"]
+  [m-grid-row]
+    [m-grid-col attributes="class:l12 m12 s12 no-padding"]
+      [m-parallax image="M_IMAGE" image-path="M_PATH" image-title="M_IMG_TITLE" image-alt="M_IMG_ALT" attributes="class:hide-on-med-and-down center-align text-full-white valign-wrapper M_EXTRA_ATTRIBUTES"]
+        [m-tag tag="div" attributes="class:interlude"]
+          M_CONTENT
+        [/m-tag]
+      [/m-parallax]
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

@@ -1,0 +1,6 @@
+{% if values.icon is defined %}
+<span class="fa-stack fa-lg">
+  <i class="fa fa-stack-2x {{ values.icon_container|default('fa-circle-thin') }}"></i>
+  <i class="fa fa-stack-1x {{ values.icon|default('fa-code') }}"></i>
+</span>
+{% endif %}

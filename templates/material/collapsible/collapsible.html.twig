@@ -1,0 +1,9 @@
+<ul class="collapsible {{ values.popout }}" data-collapsible="{{ values.expandable }}">
+  {% for item in values.items %}
+  {% set icon_values = { 'icon':item.getParameter("icon") } %} {{ dump(icon_values) }}
+  <li>
+    <div class="collapsible-header{% if (item.getParameter("active")) %} active{% endif %}">{% include 'basic/icon.html.twig' with {'values': icon_values} %}{{ item.getParameter("title") }}</div>
+    <div class="collapsible-body">{{ item.content }}</div>
+  </li>
+  {% endfor %}
+</ul>

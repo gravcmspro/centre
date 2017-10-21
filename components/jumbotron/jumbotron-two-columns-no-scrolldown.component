@@ -1,0 +1,12 @@
+[m-jumbotron image="M_IMAGE" image-path="M_PATH" blurred-image="M_BLURRED_IMAGE" render="M_RENDER" height="M_HEIGHT" background-attached="M_BACKGROUND_ATTACHED" attributes="class:vertical-align"]
+  [m-grid container="M_CONTAINER"]
+    [m-grid-row attributes="class:m-vertical-align"]
+      [m-grid-col attributes="M_HEADER_LEFT.M_ATTRIBUTES"]
+        M_HEADER_LEFT.M_CONTENT
+      [/m-grid-col]
+      [m-grid-col attributes="M_HEADER_RIGHT.M_ATTRIBUTES"]
+        M_HEADER_RIGHT.M_CONTENT
+      [/m-grid-col]
+    [/m-grid-row]
+  [/m-grid]
+[/m-jumbotron]

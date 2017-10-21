@@ -1,0 +1,9 @@
+<ul id="{{ id }}" class="dropdown-content">
+    {% for item in items %}
+      {% if item is iterable %}
+      <li>{% include 'basic/link.html.twig' with {'menu': item.menu, 'url': item.url} %}</li>
+      {% else %}
+      <li>{{ item }}</li>
+      {% endif %}
+    {% endfor %}
+</ul>

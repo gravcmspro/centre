@@ -1,0 +1,14 @@
+{% macro render_icon(values) %}
+{% if values.icon is defined and values.icon != "" %}
+  {% set attributes = parse_attributes(values.icon_attributes) %}
+  {% if 'fa-' in values.icon %}
+  <i class="fa {{ values.icon }} {{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}></i>
+  {% elseif 'mdi-' in values.icon %}
+  <i class="mdi {{ values.icon }} {{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}></i>
+  {% elseif 'glyphicon-' in values.icon %}
+  <span class="glyphicon {{ values.icon }} {{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}></span>
+  {% else %}
+  <i class="material-icons {{ attributes['class'] }}">{{ values.icon }}</i>
+  {% endif %}
+{% endif %}
+{% endmacro %}

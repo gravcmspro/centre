@@ -1,0 +1,25 @@
+[m-tag tag="footer" name="M_NAME" render="M_RENDER" attributes="class:page-footer M_EXTRA_ATTRIBUTES"]
+  [m-grid attributes="class:margin-top-medium"]
+    [m-grid-row]
+      [m-grid-col attributes="class:s12 m12 l12 center inline-navigation M_NAVIGATION.M_EXTRA_ATTRIBUTES"]
+        M_NAVIGATION.M_CONTENT
+      [/m-grid-col]
+    [/m-grid-row]
+    [m-grid-row]
+      [m-grid-col attributes="M_LEFT_COLUMN.M_ATTRIBUTES"]
+        M_LEFT_COLUMN.M_CONTENT
+      [/m-grid-col]
+      [m-grid-col attributes="M_CENTER_COLUMN.M_ATTRIBUTES"]
+        M_CENTER_COLUMN.M_CONTENT
+      [/m-grid-col]
+      [m-grid-col attributes="M_RIGHT_COLUMN.M_ATTRIBUTES"]
+        M_RIGHT_COLUMN.M_CONTENT
+      [/m-grid-col]
+    [/m-grid-row]
+    [m-grid-row]
+      [m-grid-col attributes="class:l12 m12 s12 center footer-copyright"]
+        M_COPYRIGHT.M_CONTENT
+      [/m-grid-col]
+    [/m-grid-row]
+  [/m-grid]
+[/m-tag]

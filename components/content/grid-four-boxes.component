@@ -1,0 +1,19 @@
+[m-grid container="false"]
+  [m-grid-row attributes="class:no-margin M_ITEM_1.M_ROW_EXTRA_ATTRIBUTES"]
+    [m-grid-col attributes="M_ITEM_1.M_ATTRIBUTES"]
+      M_ITEM_1.M_CONTENT
+    [/m-grid-col]
+    [m-grid-col attributes="M_ITEM_2.M_ATTRIBUTES"]
+      M_ITEM_2.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+
+  [m-grid-row attributes="class:no-margin M_ITEM_3.M_ROW_EXTRA_ATTRIBUTES"]
+    [m-grid-col attributes="M_ITEM_3.M_ATTRIBUTES"]
+      M_ITEM_3.M_CONTENT
+    [/m-grid-col]
+    [m-grid-col attributes="M_ITEM_4.M_ATTRIBUTES"]
+      M_ITEM_4.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

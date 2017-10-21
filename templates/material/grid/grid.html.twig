@@ -1,0 +1,5 @@
+{% set container_class = (container == "false") ? '' : 'container ' %}
+{% set attributes = parse_attributes(attributes) %}
+<div class="{{ container_class }}{{ attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}>
+    {{ content }}
+</div>

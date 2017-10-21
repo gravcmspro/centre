@@ -1,0 +1,8 @@
+{% if (values.show_title == 'true' ) %}
+<h3>{{ active_page.title }}</h3>
+{% endif %}
+
+{{ grav.dictionary.fromName(active_page.header.card.dictionary_item, child, values.summary != null ? values.summary : true) }}
+
+{% set link_attributes = parse_attributes(values.link_attributes) %}
+<a href="{{ child.url }}" {% include 'partials/_attributes.html.twig' with {'attributes': link_attributes} %}>{{ values.link_label != null ? values.link_label : 'Read more' }}</a>

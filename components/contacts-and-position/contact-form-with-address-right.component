@@ -1,0 +1,18 @@
+[m-grid container="M_CONTAINER" attributes="M_ATTRIBUTES"]
+  [m-grid-row]
+    [m-grid-col attributes="class:M_INCIPIT.M_COLUMNS M_INCIPIT.M_CENTER M_INCIPIT.M_EXTRA_ATTRIBUTES"]
+      M_INCIPIT.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+
+  [m-grid-row]
+    [m-grid-col attributes="class:M_FORM.M_COLUMNS M_FORM.M_EXTRA_ATTRIBUTES"]
+      [m-recaptcha-form action="M_FORM.M_ACTION" name-placeholder="M_FORM.M_NAME_PLACEHOLDER" mail-placeholder="M_FORM.M_MAIL_PLACEHOLDER" submit-text="M_FORM.M_SUBMIT_TEXT" site-key="M_FORM.M_SITE_KEY" site-secret="M_FORM.M_SITE_SECRET"]
+        M_FORM.M_CONTENT
+      [/m-recaptcha-form]
+    [/m-grid-col]
+    [m-grid-col attributes="class:M_ADDRESS.M_COLUMNS M_ADDRESS.M_EXTRA_ATTRIBUTES"]
+      M_ADDRESS.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

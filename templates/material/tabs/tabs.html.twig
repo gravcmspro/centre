@@ -1,0 +1,15 @@
+
+  <ul class="tabs">
+    {% for item in values.items %}
+    {% set icon_values = {
+        icon: item.getParameter("icon"),
+        icon_attributes: item.getParameter("icon-attributes"),
+    } %}
+    <li class="tab"><a href="#{{item.getParameter("id") }}">{% include 'basic/icon.html.twig' with {'values': icon_values} %}{{item.getParameter("label") }}</a></li>
+    {% endfor %}
+  </ul>
+  {% for item in values.items %}
+  <div id="{{ item.getParameter("id") }}">
+    {{ item.getContent() }}
+  </div>
+  {% endfor %}

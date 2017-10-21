@@ -1,0 +1,14 @@
+<div class="promo-table-item">
+  <div>
+  {% include 'basic/icon.html.twig' %}
+  </div>
+
+  {% set attributes = parse_attributes(values.attributes) %}
+  <div {% include 'partials/_attributes.html.twig' %}>
+    {{ values.content }}
+  </div>
+  <div>
+    {% set link_attributes = parse_attributes(values.link_attributes) %}
+    <a href="{{ values.url }}"{% include 'partials/_attributes.html.twig' with {'attributes': link_attributes} %}>{{ values.menu }}</a>
+  </div>
+</div>

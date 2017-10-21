@@ -1,0 +1,4 @@
+{% set attributes = parse_attributes(values.attributes) %}
+<{{ values.tag}} {% include 'partials/_attributes.html.twig' with {'values': attributes} %}{% if(values.image is not null) %} style="background-image:url({{ get_media(values.image, values.image_path).url }})"{% endif %}>
+    {{ values.content }}
+</{{ values.tag}}>

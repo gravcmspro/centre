@@ -1,0 +1,8 @@
+{% set attributes = parse_attributes(values.attributes) %}
+<div class="parallax-container {{ attributes.class }}" {% include 'partials/_attributes.html.twig' with {'attributes': attributes, 'ignore': ['class']} %}>
+  {{ values.content }}
+  <div class="parallax">
+    {% set image = get_media(values.image, values.image_path) %}
+    {{ image.html(values.image_title, values.image_alt, values.image_class) }}
+  </div>
+</div>

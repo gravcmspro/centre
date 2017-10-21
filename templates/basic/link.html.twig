@@ -1,0 +1,3 @@
+{% set attributes = parse_attributes(values.link_attributes) %}
+{% set icon_stacked = (values.stacked is defined and values.stacked == true) ? '_stacked' : '' %}
+<a href="{{ values.url }}"{% include 'partials/_attributes.html.twig' %}>{% include 'basic/icon' ~ icon_stacked ~ '.html.twig'%}{{ values.menu }}</a>

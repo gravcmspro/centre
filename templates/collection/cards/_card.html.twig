@@ -1,0 +1,8 @@
+{% set image = active_page.media.images|first %}
+{% set values = {
+    content: grav.dictionary.fromName(active_page.header.card.dictionary_item, active_page),
+    image_path: '/images',
+    }|rmerge(options)|rmerge(active_page.header.card)
+%}{{ dump(options)}}
+
+{% include 'material/card/card.html.twig' %}

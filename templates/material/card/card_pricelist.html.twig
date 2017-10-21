@@ -1,0 +1,42 @@
+{##}
+{% if(instanceof(values, '\\Thunder\\Shortcode\\Shortcode\\ProcessedShortcode')) %}
+    {% set values = {
+      'image': item.getParameter('image'),
+      'image_path': item.getParameter('image-path')|default('/images'),
+      'type': item.getParameter('type'),
+      'content': item.content|trim,
+      'attributes': item.getParameter('attributes'),
+    } %}
+{% endif %}
+
+{% set attributes = parse_attributes(values.attributes) %}
+<div class="card{% if values.type is not null %} {{ values.type }}{% endif %} {{ attributes.class }}" {% include 'partials/_attributes.html.twig' with {'attributes': attributes, 'ignore': ['class']} %}>
+    <div class="card-header card-pricelist">
+        <div class="title">{{ values.title }}</div>
+        <div class="price">{{ values.price }}</div>
+        <div class="subtitle">{{ values.subtitle }}</div>
+    </div>
+    <div class="card-content">
+        <table class="bordered condensed">
+            {% for item in values.items %}
+            {% set item_values = item %}
+            {% if(instanceof(item_values, '\\Thunder\\Shortcode\\Shortcode\\ProcessedShortcode')) %}
+                {% set item_values = {
+                  'icon': item.getParameter('icon'),
+                  'content': item.getContent(),
+                } %}
+            {% endif %}
+            <tr>
+                <td>
+                    {% if price_card.icon != null %}<i class="fa fa-{{ item_values.icon }} fa-fw"></i> {% endif %}{{ item_values.content }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% if values.button_url is not null %}
+    <div class="card-action">
+        <a class="waves-effect waves-light btn" href="{{ values.button_url }}">{{ values.button_label }}</a>
+    </div>
+    {% endif %}
+</div>

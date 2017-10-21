@@ -1,0 +1,19 @@
+[m-grid container="M_CONTAINER" attributes="class:icons-promo M_EXTRA_ATTRIBUTES"]
+  [m-grid-row attributes="class:center" ]
+    [m-grid-col attributes="class:s12 m12 l12 M_MAIN_CONTENT.M_EXTRA_ATTRIBUTES"]
+      M_MAIN_CONTENT.M_CONTENT
+    [/m-grid-col]
+  [/m-grid-row]
+  [m-grid-row attributes="class:center"]
+    [m-grid-col attributes="class:s12 m5 offset-m1 l5 offset-l1"]
+      [m-promo-table-item icon="M_PROMO_ITEM_1.M_ICON" attributes="M_PROMO_ITEM_1.M_ATTRIBUTES"]
+        M_PROMO_ITEM_1.M_CONTENT
+      [/m-promo-table-item]
+    [/m-grid-col]
+    [m-grid-col attributes="class:s12 m5 l5"]
+      [m-promo-table-item icon="M_PROMO_ITEM_2.M_ICON" attributes="M_PROMO_ITEM_2.M_ATTRIBUTES"]
+        M_PROMO_ITEM_2.M_CONTENT
+      [/m-promo-table-item]
+    [/m-grid-col]
+  [/m-grid-row]
+[/m-grid]

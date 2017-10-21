@@ -1,0 +1,47 @@
+
+{% set name_placeholder = "Insert here your full name" %}
+{% if values.name_placeholder is not null %}
+  {% set name_placeholder = values.name_placeholder %}
+{% endif %}
+
+{% set mail_placeholder = "Insert here a valid email address" %}
+{% if values.mail_placeholder is not null %}
+  {% set mail_placeholder = values.mail_placeholder %}
+{% endif %}
+
+{% set submit_text = "Submit" %}
+{% if values.submit_text is not null %}
+  {% set submit_text = values.submit_text %}
+{% endif %}
+<form action="{{ values.action }}" method="post" id="recaptchacontact" class="recaptcha-form">
+    <fieldset>
+
+        <div id="recaptchacontact-messages"></div>
+
+        <div class="recaptcha-form-group form-group">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="name" name="name" type="text" placeholder="{{ name_placeholder }}" class="recaptcha-field form-control" value="{{ recaptchacontact.session.name }}"/>
+        </div>
+
+        <div class="recaptcha-form-group form-group">
+            <i class="material-icons prefix">email</i>
+            <input id="email" name="email" type="text" placeholder="{{ mail_placeholder }}" class="recaptcha-field form-control" value="{{ recaptchacontact.session.email }}"/>
+         </div>
+
+        <div class="recaptcha-form-group form-group">
+            <i class="material-icons prefix">subject</i>
+            <textarea class="materialize-textarea form-control" id="message" name="message" rows="5">{{ values.message }}</textarea>
+        </div>
+
+        <div class="g-recaptcha" data-sitekey={{ values.sitekey }}></div>
+
+        <div class="recaptcha-hidden form-group antispam-div" style="display:none;">
+            <label class="control-label" for="antispam">{{ 'RECAPTCHACONTACT.FIELDS.ANTISPAM.LABEL'|t }}</label>
+            <input id="antispam" name="antispam" type="text" placeholder="{{ 'RECAPTCHACONTACT.FIELDS.ANTISPAM.PLACEHOLDER'|t }}" class="form-control" />
+        </div>
+
+        <div class="recaptcha-submit form-group">
+            <button type="submit" class="btn btn-default">{{ submit_text }}</button>
+        </div>
+    </fieldset>
+</form>

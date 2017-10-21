@@ -1,0 +1,58 @@
+{% macro render_collection(collection, values) %}
+  {% set column_attributes = parse_attributes(values.column_attributes) %}
+  {% for child in collection %}
+    {% if child.header.visible is null or child.header.visible %}
+    <div class="{{ attributes.class }}" {% include 'partials/_attributes.html.twig' with {'ignore': ['class']} %}>
+      <div class="{{ column_attributes.class|default('col l4 m4 s12 margin-bottom-small') }}" {% include 'partials/_attributes.html.twig' with {'attributes': column_attributes, 'ignore': ['class']} %}>
+          {{ _self.render_element(child, values) }}
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{% macro render_element(child, values) %}
+    {% set card_type = values.card_type|default('simple') %}
+    {% if(card_type == 'card') %}
+    {% include 'collection/cards/_card.html.twig' with {'active_page': child, 'options': values } %}
+    {% elseif(card_type == 'horizontal') %}
+    {% include 'collection/cards/_horizontal_card.html.twig' with {'active_page': child, 'options': values } %}
+    {% elseif(card_type == 'simple') %}
+    {% include 'collection/cards/_simple_collection_item.html.twig' with {'active_page': child, 'options': values } %}
+    {% elseif(card_type == 'links') %}
+    {% include 'collection/cards/_links.html.twig' with {'active_page': child, 'options': values } %}
+    {% endif %}
+{% endmacro %}
+
+{% macro fetch_collection(values) %}
+  {% set page = grav.page.find(values.page_name) %}
+  {% if collection is null %}
+    {% set collection = page.children() %}
+
+    {% if (values.offset is not null and values.length is not null) %}
+    {% set collection = collection.slice(0, 3) %}
+    {% endif %}
+
+    {% set collection = collection.order(values.order_by|default('name'), values.order_direction|default('asc')) %}
+  {% endif %}
+{% endmacro %}
+
+{% macro render(values) %}
+  {% set page = grav.page.find(values.page_name) %}
+  {% if collection is null %}
+    {% set collection = page.children() %}
+
+    {% if (values.offset is not null and values.length is not null) %}
+    {% set collection = collection.slice(0, 3) %}
+    {% endif %}
+
+    {% set collection = collection.order(values.order_by|default('name'), values.order_direction|default('asc')) %}
+  {% endif %}
+  
+  {% set container_class = (values.container == "false") ? '' : 'container ' %}
+  <div class="{{ container_class }}">
+    <div class="row">
+        {{ _self.render_collection(collection, values) }}
+    </div>
+  </div>
+{% endmacro %}

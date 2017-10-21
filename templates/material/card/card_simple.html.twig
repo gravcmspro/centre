@@ -1,0 +1,24 @@
+{% if(instanceof(values, '\\Thunder\\Shortcode\\Shortcode\\ProcessedShortcode')) %}
+    {% set values = {
+      'image': item.getParameter('image'),
+      'image_path': item.getParameter('image-path')|default('/images'),
+      'type': item.getParameter('type'),
+      'content': item.content|trim,
+    } %}
+{% endif %}
+
+{% set header_attributes = parse_attributes(values.header_attributes) %}
+{% set card_attributes = parse_attributes(values.attributes) %}
+<div class="card{% if values.type is not null %} {{ values.type }}{% endif %} rounded {{ card_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': card_attributes, 'ignore': ['class']} %}>
+    <div class="card-header card-simple text-white {{ header_attributes['class'] }}" {% include 'partials/_attributes.html.twig' with {'attributes': header_attributes, 'ignore': ['class']} %}>
+        <h3>{{ values.title }}</h3>
+    </div>
+    <div class="card-content">
+        {{ values.content }}
+    </div>
+    {% if values.button_url is not null %}
+    <div class="card-action">
+        <a class="waves-effect waves-light btn" href="{{ values.button_url }}">{{ values.button_caption }}</a>
+    </div>
+    {% endif %}
+</div>

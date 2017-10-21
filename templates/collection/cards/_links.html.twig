@@ -1,0 +1,8 @@
+<ul>
+  <li><h4>{{ str_replace('-', ' ', active_page.title) }}</h4></li>
+  {% for child in active_page.children() %}
+    {% if child.visible and child.published %}
+    <li><a href="{{ child.url }}">{{ child.menu }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
