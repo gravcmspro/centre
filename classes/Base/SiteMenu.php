@@ -42,21 +42,33 @@ class SiteMenu
     public function buildMenu(ShortcodeInterface $shortcode, array $childShortcodes, $pageName = null, $showHidden = false)
     {
         $submenu = explode(',', $shortcode->getParameter('submenu'));
+
+/*
         $page = (null === $pageName)
             ?
                 $this->grav['pages']->root()
             :
                 $this->grav['page']->find('/'.$pageName)
             ;
+*/
+
+
+        $onePage = false;
+        $page = $this->grav['pages']->root();
+        if (null !== $pageName) {
+            $page = $this->grav['page']->find('/'.$pageName);
+            $onePage = true;
+        }
+
         if (null === $page) {
-          return;
+            return;
         }
 
         $pages = $page->children();
 
         $menu = array();
         foreach ($pages as $page) {
-            if (!($showHidden || $page->visible()) || !$page->published()) {
+            if (((!($showHidden || $page->visible())) && !$page->modular()) || !$page->published()) {
                 continue;
             }
 
@@ -77,17 +89,24 @@ class SiteMenu
                     }
 
                     $children[] = array(
-                        'url' => $child->url(),
-                        'menu' => $child->menu(),
+                        //'url' => $child->url(),
+                        //'menu' => $child->menu(),
+                        'page' => $page,
                     );
                 }
             }
 
             $menu[] = array(
-                'url' => $page->url(),
-                'menu' => $page->menu(),
+                //'url' => $page->url(),
+                //'menu' => $page->menu(),
+                //'header' => $page->header(),
+                'page' => $page,
                 'children' => $children,
             );
+        }
+
+        if ($onePage) {
+            $menu = array_reverse($menu);
         }
 
         $extraItems = $this->processChildrenShortcodes($childShortcodes);

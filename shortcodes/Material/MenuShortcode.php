@@ -83,7 +83,6 @@ class MenuShortcode extends BaseShortcode
                 'alignment' => $shortcode->getParameter('alignment'),
                 'attributes' => $shortcode->getParameter('attributes'),
                 'menu' => $menu,
-                'onepage' => ($shortcode->getParameter('onepage') == 'true') ? true : false,
             ),
         ]);
 
