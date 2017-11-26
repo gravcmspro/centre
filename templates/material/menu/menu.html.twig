@@ -29,7 +29,7 @@
         menu: page.menu,
         icon: page.icon,
         link_attributes: page.link_attributes
-    } %}
+    }|merge(values) %}
     {% include 'basic/link.html.twig' %}
     {% endif %}
     </li>
@@ -43,7 +43,13 @@
 {% macro render_dropdown(dropdown) %}
 <ul id='{{ dropdown.id }}' class='dropdown-content'>
   {% for item in dropdown.items %}
-    {% set values = item %}
+    {% set page = item.page %}
+    {% set values = {
+        url: page.url,
+        menu: page.menu,
+        icon: page.icon,
+        link_attributes: page.link_attributes
+    } %}
     {% if item is iterable %}
     <li>{% include 'basic/link.html.twig' %}</li>
     {% else %}

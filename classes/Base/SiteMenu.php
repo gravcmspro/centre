@@ -43,16 +43,6 @@ class SiteMenu
     {
         $submenu = explode(',', $shortcode->getParameter('submenu'));
 
-/*
-        $page = (null === $pageName)
-            ?
-                $this->grav['pages']->root()
-            :
-                $this->grav['page']->find('/'.$pageName)
-            ;
-*/
-
-
         $onePage = false;
         $page = $this->grav['pages']->root();
         if (null !== $pageName) {
@@ -65,6 +55,10 @@ class SiteMenu
         }
 
         $pages = $page->children();
+        if ($onePage) {
+            $header = $page->header();
+            $pages = $this->sortCollection($header, $pages);
+        }
 
         $menu = array();
         foreach ($pages as $page) {
@@ -89,30 +83,40 @@ class SiteMenu
                     }
 
                     $children[] = array(
-                        //'url' => $child->url(),
-                        //'menu' => $child->menu(),
-                        'page' => $page,
+                        'page' => $child,
                     );
                 }
             }
 
             $menu[] = array(
-                //'url' => $page->url(),
-                //'menu' => $page->menu(),
-                //'header' => $page->header(),
                 'page' => $page,
                 'children' => $children,
             );
-        }
-
-        if ($onePage) {
-            $menu = array_reverse($menu);
         }
 
         $extraItems = $this->processChildrenShortcodes($childShortcodes);
         $menu = array_merge($extraItems['before'], $menu, $extraItems['after']);
 
         return $menu;
+    }
+
+    private function sortCollection($header, $pages)
+    {
+        if (!property_exists($header, 'content')) {
+            return $pages;
+        }
+
+        if (!array_key_exists('order', $header->content)) {
+            return $pages;
+        }
+        $order = $header->content["order"];
+
+        $by = array_key_exists('by', $order) ? $order["by"] : 'default';
+        $dir = array_key_exists('dir', $order) ? $order["dir"] : 'asc';
+        $custom = array_key_exists('custom', $order) ? $order["custom"] : null;
+        $pages = $pages->order($by, $dir, $custom);
+
+        return $pages;
     }
 
     private function processChildrenShortcodes(array $shortcodes)

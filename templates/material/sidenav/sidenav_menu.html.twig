@@ -1,16 +1,17 @@
 
 <ul id="slide-out" class="side-nav">
 {% for item in values.menu %}
+  {% set page = item.page %}
   {% if (item.children|length == 0) %}
-    {% if item.menu is not null %}
-  <li class="bold"><a href="{{ item.url }}">{{ item.menu }}</a></li>
+    {% if page.menu is not null %}
+  <li class="bold"><a href="{{ page.url }}">{{ page.menu }}</a></li>
     {% else %}
   <li>{{ item}}</li>
     {% endif %}
   {% else %}
   <li class="no-padding">
     <ul class="collapsible collapsible-accordion">
-      <li class="bold"><a class="collapsible-header waves-effect waves-teal">{{ item.menu }}</a>
+      <li class="bold"><a class="collapsible-header waves-effect waves-teal">{{ page.menu }}</a>
           <div class="collapsible-body">
             <ul>
               {% for child in item.children %}
