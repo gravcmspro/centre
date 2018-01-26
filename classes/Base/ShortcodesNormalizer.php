@@ -26,6 +26,7 @@ use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Parser\RegularParser;
 use Grav\Common\Grav;
+use Grav\Common\Page\Page;
 
 /**
  * Class ShortcodesNormalizer
@@ -38,13 +39,13 @@ class ShortcodesNormalizer
     protected $parser = null;
     protected $page = null;
 
-    public function __construct($grav)
+    public function __construct(Grav $grav)
     {
         $this->grav = $grav;
         $this->parser = new RegularParser(new CommonSyntax());
     }
 
-    public function normalize($page)
+    public function normalize(Page $page)
     {
         $this->page = $page;
         $pageContent = $page->getRawContent();
@@ -66,7 +67,7 @@ class ShortcodesNormalizer
         return $content;
     }
 
-    protected function findComponent($shortcode)
+    protected function findComponent(ShortcodeInterface $shortcode)
     {
         $folder = $this->findComponentFolder($shortcode);
         $componentName = $shortcode->getParameter('component');
@@ -84,7 +85,7 @@ class ShortcodesNormalizer
     }
 
 
-    protected function findComponentFolder($shortcode)
+    protected function findComponentFolder(ShortcodeInterface $shortcode)
     {
         $folder = '';
         $componentFolder = $shortcode->getParameter('folder');
@@ -141,7 +142,7 @@ class ShortcodesNormalizer
         return str_replace($shortcodeOriginalText, implode("\n", $lines), $pageContent);
     }
 
-    private function processShortcode($shortcode, $shortcodeText)
+    private function processShortcode(ShortcodeInterface $shortcode, $shortcodeText)
     {
         $shortcodeProcessedText = $shortcodeText;
         if ($shortcode->getName() == 'm-component') {
@@ -153,7 +154,7 @@ class ShortcodesNormalizer
         return $shortcodeProcessedText;
     }
 
-    private function processShortcodeRecursive($shortcode, $shortcodeText)
+    private function processShortcodeRecursive(ShortcodeInterface $shortcode, $shortcodeText)
     {
         $shortcodeName = $shortcode->getName();
         if ($shortcodeName === 'raw') {
@@ -173,7 +174,7 @@ class ShortcodesNormalizer
         return $shortcodeText;
     }
 
-    private function processModel($shortcode)
+    private function processModel(ShortcodeInterface $shortcode)
     {
         $shortcodeContent = $shortcode->getContent();
         $componentFile = $this->findComponent($shortcode);
@@ -196,7 +197,7 @@ class ShortcodesNormalizer
         return $shortcodeContent;
     }
 
-    private function processComponent($shortcode, $shortcodeContent, $itemName = null)
+    private function processComponent(ShortcodeInterface $shortcode, $shortcodeContent, $itemName = null)
     {
         foreach ($shortcode->getParameters() as $name => $value) {
             if ($name == 'name') {

@@ -24,6 +24,7 @@ namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Grav\Common\Grav;
+use Grav\Common\Page\Collection;
 
 /**
  * Class SiteMenu
@@ -34,9 +35,9 @@ class SiteMenu
 {
     protected $grav;
 
-    public function __construct()
+    public function __construct(Grav $grav)
     {
-        $this->grav = Grav::instance();
+        $this->grav = $grav;
     }
 
     public function buildMenu(ShortcodeInterface $shortcode, array $childShortcodes, $pageName = null, $showHidden = false)
@@ -100,7 +101,7 @@ class SiteMenu
         return $menu;
     }
 
-    private function sortCollection($header, $pages)
+    private function sortCollection($header, Collection $pages)
     {
         if (!property_exists($header, 'content')) {
             return $pages;

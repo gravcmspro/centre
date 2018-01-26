@@ -64,7 +64,7 @@ class MenuShortcode extends BaseShortcode
     protected function renderOutput(ShortcodeInterface $shortcode)
     {
         require_once __DIR__.'/../../classes/Base/SiteMenu.php';
-        $siteMenu = new SiteMenu();
+        $siteMenu = new SiteMenu($this->grav);
         $childShortcodes = $this->shortcode->getStates($this->shortcode->getId($shortcode));
         if (null === $childShortcodes) {
             $childShortcodes = array();

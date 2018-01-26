@@ -26,6 +26,7 @@ use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Parser\RegularParser;
 use Grav\Common\Grav;
+use Grav\Common\Page\Page;
 
 /**
  * Class SharedContents
@@ -36,12 +37,12 @@ class SharedContents
 {
     protected $grav = null;
 
-    public function __construct($grav)
+    public function __construct(Grav $grav)
     {
         $this->grav = $grav;
     }
 
-    public function match($page)
+    public function match(Page $page)
     {
         $pageContent = $page->getRawContent();
         preg_match_all('/\<\|([^\.]+).([^\|]+)\|\>/i', $pageContent, $matches, PREG_SET_ORDER);

@@ -59,10 +59,6 @@ abstract class BaseShortcode extends Shortcode
     public function init()
     {
         $this->shortcode->getHandlers()->add($this->shortcodeName(), function(ShortcodeInterface $shortcode) {
-            /*
-            foreach($this->assets() as $type => $assets) {
-                $this->grav['assets']->add($assets);
-            }*/
 
             $output = $this->renderOutput($shortcode);
 

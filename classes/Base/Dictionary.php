@@ -27,6 +27,7 @@ use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Processor\Processor;
 use Grav\Common\Grav;
+use Grav\Common\Page\Page;
 use Grav\Common\Markdown\ParsedownExtra;
 
 /**
@@ -41,13 +42,13 @@ class Dictionary
     protected $page = null;
     private $shortcodes = array();
 
-    public function __construct($grav)
+    public function __construct(Grav $grav)
     {
         $this->grav = $grav;
         $this->parser = new RegularParser(new CommonSyntax());
     }
 
-    public function translate($page, $pageContent = null)
+    public function translate(Page $page, $pageContent = null)
     {
         $this->page = $page;
         $shortcodes = $this->init($page);
@@ -69,7 +70,7 @@ class Dictionary
         return $pageContent;
     }
 
-    public function fromName($name, $page = null, $summary = true)
+    public function fromName($name, Page $page = null, $summary = true)
     {
         if (null === $page) {
             $content = $this->getContent($name);
@@ -130,7 +131,7 @@ class Dictionary
         return $this->shortcodes[$name];
     }
 
-    private function getContentFromName($name, $page)
+    private function getContentFromName($name, Page $page)
     {
         $content = '';
         $shortcodes = $this->init($page);
@@ -138,13 +139,6 @@ class Dictionary
             $key = strtoupper($shortcode->getParameter('name'));
             if ($name == $key) {
                 $content = trim($shortcode->getContent());
-              //  dump($this->init($page, $content));
-          //      exit;
-/*
-                $parsedContent = $this->parseContent($content);
-                                //dump($parsedContent);exit;
-                $this->shortcodes[$name] = $parsedContent;
-                $pageContent = str_replace($name, $parsedContent["content"], $pageContent);*/
 
                 break;
             }
@@ -153,7 +147,7 @@ class Dictionary
         return $content;
     }
 
-    private function init($page)
+    private function init(Page $page)
     {
         $shortcodes = array();
         $dictionaries = $this->dictionaries($page);
@@ -172,7 +166,7 @@ class Dictionary
         return $shortcodes;
     }
 
-    private function addDictionary($dictionary, $shortcodes, $language, $userFolder)
+    private function addDictionary($dictionary, array $shortcodes, $language, $userFolder)
     {
         $dictionayFile = sprintf('%s/dictionaries/%s.%s.md', $userFolder, $dictionary, $language);
         if (!file_exists($dictionayFile)) {
@@ -183,7 +177,7 @@ class Dictionary
         return array_merge($shortcodes, $this->parser->parse($dictionayContent));
     }
 
-    private function dictionaries($page)
+    private function dictionaries(Page $page)
     {
         $header = $page->header();
         $dictionary = $this->getDictionaries($header);

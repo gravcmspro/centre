@@ -55,15 +55,7 @@ class ListShortcode extends BaseShortcode
             'm-list-item',
         );
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function aliases()
-    {
-        return array();
-    }
-
+    
     /**
      * {@inheritdoc}
      */

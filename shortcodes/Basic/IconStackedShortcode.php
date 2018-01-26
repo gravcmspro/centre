@@ -50,14 +50,6 @@ class IconStackedShortcode extends BaseShortcode
     /**
      * {@inheritdoc}
      */
-    protected function aliases()
-    {
-        return array();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function renderOutput(ShortcodeInterface $shortcode)
     {
         return $this->grav['twig']->processTemplate($this->template(), [

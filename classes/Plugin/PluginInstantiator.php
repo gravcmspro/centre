@@ -25,6 +25,7 @@ namespace Grav\Plugin;
 use Grav\Common\Plugin;
 
 use Grav\Plugin\Shortcodes\ShortcodesNormalizer;
+use Grav\Common\Grav;
 
 /**
  * Class PluginInstantiator
@@ -35,7 +36,7 @@ class PluginInstantiator
 {
     protected $grav = null;
 
-    function __construct($grav)
+    function __construct(Grav $grav)
     {
         $this->grav = $grav;
     }
