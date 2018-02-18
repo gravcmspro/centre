@@ -103,7 +103,7 @@ class SiteMenu
 
     private function sortCollection($header, Collection $pages)
     {
-        if (!property_exists($header, 'content')) {
+        if (null === $header || !property_exists($header, 'content')) {
             return $pages;
         }
 
